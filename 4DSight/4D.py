@@ -54,9 +54,10 @@ axis_3d = np.float32([[0,0,0], [0,3,0], [3,3,0], [3,0,0],
                    [0,0,-3],[0,3,-3],[3,3,-3],[3,0,-3] ])
 
 
-
+i=0
     
 for fname in glob.glob('./img*.png'):
+    i=i+1
     img = plt.imread(fname)
     img=np.uint8(img*255)
     gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
@@ -68,6 +69,7 @@ for fname in glob.glob('./img*.png'):
     img = draw(img,corners2,imgpts)
     show_image = cv.resize(img, (img[:,:,0].shape[1]//2, img[:,:,0].shape[0]//2))
     cv.imshow('img',show_image)
+    cv.imwrite("./output"+np.str(i)+ ".png",show_image)
     k = cv.waitKey(0) & 0xFF
     if k == ord('s'):
         cv.imwrite(fname[:6]+'.png', img)
